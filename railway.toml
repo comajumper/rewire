@@ -1,0 +1,3 @@
+[service]
+build = "cd bot && pnpm install"
+start = "cd bot && pnpm start"
