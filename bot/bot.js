@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 console.log("BOT_TOKEN:", process.env.BOT_TOKEN); // Debugging line
-
+console.log("All Environment Variables:", process.env);
 
 import startHandler from './handlers/start.js';
 import helpHandler from './handlers/help.js';

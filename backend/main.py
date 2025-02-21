@@ -44,3 +44,7 @@ async def get_meetings(telegram_id: str, db: Session = Depends(get_db)):
         }
         for event in events
     ]
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))  # Default to 8000 if not set
+    uvicorn.run(app, host="0.0.0.0", port=port)
