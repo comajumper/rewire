@@ -1,7 +1,8 @@
 fastapi
 uvicorn
 sqlalchemy
-pydantic
-python-dotenv
-requests
-pytest
+psycopg2-binary  # PostgreSQL driver
+google-auth  # Required for OAuth
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client

@@ -2,12 +2,19 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db, Base, engine
 from oauth import router as oauth_router
-from datetime import datetime  # Add this import
+from datetime import datetime
 from services import calendar, user
-
-Base.metadata.create_all(bind=engine)
+import os
+import uvicorn
 
 app = FastAPI()
+
+@app.on_event("startup")
+async def startup():
+    import asyncio
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(None, Base.metadata.create_all, engine)
+
 app.include_router(oauth_router, prefix="/api/v1")
 
 @app.get("/")
@@ -46,5 +53,4 @@ async def get_meetings(telegram_id: str, db: Session = Depends(get_db)):
     ]
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))  # Default to 8000 if not set
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run("main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)), reload=True)
