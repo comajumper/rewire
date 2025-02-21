@@ -2,8 +2,8 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db, Base, engine
 from oauth import router as oauth_router
+from datetime import datetime  # Add this import
 from services import calendar, user
-
 
 Base.metadata.create_all(bind=engine)
 
